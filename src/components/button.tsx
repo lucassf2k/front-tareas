@@ -6,9 +6,9 @@ const button = tv({
   variants: {
     size: {
       sm: 'text-sm',
-      md: 'w-40 h-10 text-md',
-      lg: 'w-80 h-10 text-lg',
-      full: 'w-full h-10 text-lg',
+      md: 'w-40 h-12 text-md',
+      lg: 'w-80 h-12 text-lg',
+      full: 'w-full h-12 text-lg',
     },
     variant: {
       primary: 'bg-cyan-600',
