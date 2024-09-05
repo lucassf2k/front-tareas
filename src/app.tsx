@@ -1,17 +1,25 @@
-import { Button } from './components/button';
-import { Card } from './components/card';
+import { Bounce, ToastContainer } from 'react-toastify';
+import { Router } from './components/router';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 export function App() {
   return (
-    <div className="bg-black w-screen h-screen">
-      <div className="max-w-[800px] m-auto h-screen py-20">
-        <h1 className="text-5xl text-white">Tareas</h1>
-        <Card>
-          <Button size="md" variant="primary">
-            Olha
-          </Button>
-        </Card>
-      </div>
-    </div>
+    <>
+      <Router />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+      />
+    </>
   );
 }
