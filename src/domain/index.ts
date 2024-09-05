@@ -10,3 +10,8 @@ export type User = {
   id: string;
   email: string;
 };
+
+export type HandleSignIn = {
+  email: string;
+  password: string;
+};
