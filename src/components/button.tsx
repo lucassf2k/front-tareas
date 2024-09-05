@@ -13,6 +13,7 @@ const button = tv({
     variant: {
       primary: 'bg-cyan-600',
       outline: 'bg-none border border-solid border-gray-500',
+      icon: 'bg-none border-none',
     },
     defaultVariants: {
       size: 'md',
