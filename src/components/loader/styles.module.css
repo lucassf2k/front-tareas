@@ -46,7 +46,7 @@
 }
 
 .loader {
-  color: var(--primaryColor);
+  color: #28BFB4;
   font-size: 6rem;
   width: 1em;
   height: 1em;
