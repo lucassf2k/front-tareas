@@ -7,7 +7,7 @@ export type UpdateTaskDTO = {
   isCompleted?: boolean;
 };
 
-export const updateTask = async (input: UpdateTaskDTO) => {
-  const output = await Axios.post<Task>('/task', input);
+export const updateTask = async (id: string, input: UpdateTaskDTO) => {
+  const output = await Axios.put<Task>(`/task/${id}`, input);
   return output.data;
 };
