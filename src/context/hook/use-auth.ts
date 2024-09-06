@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
+import Cookie from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { Axios } from '../../libs/http/config';
 import { HandleSignIn } from '../../domain';
 import { signIn } from '../../libs/http/sign-in';
-import { AxiosError } from 'axios';
-import { toast } from 'react-toastify';
 
 export function useAuth() {
   const [authenticated, setAuthenticated] = useState<boolean>(false);
@@ -12,7 +13,8 @@ export function useAuth() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('@TAREAS:token');
+    //const token = localStorage.getItem('@TAREAS:token');
+    const token = Cookie.get('@TAREAS:token');
     if (token) {
       Axios.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
       setAuthenticated(true);
@@ -23,19 +25,24 @@ export function useAuth() {
   const handleSignIn = async (user: HandleSignIn) => {
     try {
       setIsLoading(true);
-      const authorization = await signIn(user);
-      const [_, token] = authorization.split(' ');
-      if (!token) navigate('/');
-      localStorage.setItem('@TAREAS:token', JSON.stringify(token));
-      localStorage.setItem('@TAREAS:email', user.email);
-      Axios.defaults.headers.Authorization = `Bearer ${token}`;
+      const response = await signIn(user);
+      if (!response.token) navigate('/');
+      const cookieExpirationTime = new Date(Date.now() + 5 * 60 * 1000);
+      Cookie.set('@TAREAS:token', JSON.stringify(response.token), {
+        expires: cookieExpirationTime,
+      });
+      Cookie.set('@TAREAS:email', JSON.stringify(response.token), {
+        expires: cookieExpirationTime,
+      });
+      Axios.defaults.headers.Authorization = `Bearer ${response.token}`;
       setAuthenticated(true);
       setIsLoading(false);
       navigate('/home');
     } catch (error) {
       setIsLoading(false);
       if (error instanceof AxiosError && error.status) {
-        toast.warning('Usuário não encontrado!');
+        if (error.status >= 400 && error.status < 500)
+          toast.warning('Usuário sem permissão! Verifique e-mail e senha');
       }
       console.log(error);
     }
@@ -43,10 +50,10 @@ export function useAuth() {
 
   const handleLogout = () => {
     setAuthenticated(false);
-    localStorage.removeItem('@TAREAS:token');
-    localStorage.removeItem('@TAREAS:email');
+    Cookie.remove('@TAREAS:token');
+    Cookie.remove('@TAREAS:email');
     Axios.defaults.headers.Authorizarion = '';
-    navigate('/sign-in');
+    navigate('/');
   };
 
   return { isLoading, authenticated, handleSignIn, handleLogout };
