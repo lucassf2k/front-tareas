@@ -4,14 +4,16 @@ import { twMerge } from 'tailwind-merge';
 
 interface ModalProps {
   children: ReactNode;
+  isVisible: boolean;
   className?: string;
 }
 
 export const Modal = (props: ModalProps) => {
+  if (!props.isVisible) return null;
   return createPortal(
     <div
       className={twMerge(
-        'bg-black/80 backdrop-blur-sm absolute w-full h-full left-0 top-0 flex items-center justify-center',
+        'bg-cyan-900/20 backdrop-blur-sm absolute w-full h-full left-0 top-0 flex items-center justify-center',
         props.className,
       )}
     >
@@ -21,7 +23,12 @@ export const Modal = (props: ModalProps) => {
   );
 };
 
-export const ModalContent = (props: ModalProps) => {
+export interface ModalContentProps {
+  children: ReactNode;
+  className?: string;
+}
+
+export const ModalContent = (props: ModalContentProps) => {
   return (
     <div
       className={twMerge(
