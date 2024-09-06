@@ -41,6 +41,7 @@ export function SignUp() {
       await signUp(data);
       toast.success('Cadastro realizado com sucesso!');
       setIsLoading(false);
+      navigate('/');
     } catch (error) {
       console.log(error);
       toast.error('Aconteceu algo inesperado! Tente novamente');
