@@ -10,7 +10,7 @@ interface PrivateProps {
 export function Private(props: PrivateProps) {
   const authContext = useContext(AuthContext);
   if (authContext.isLoading) {
-    return <Loader isLoading />;
+    return <Loader isLoading={authContext.isLoading} />;
   }
   if (!authContext.authenticated) return <Navigate to="/" replace />;
   return props.children;
