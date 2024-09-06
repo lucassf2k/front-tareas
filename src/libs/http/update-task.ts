@@ -8,6 +8,6 @@ export type UpdateTaskDTO = {
 };
 
 export const updateTask = async (id: string, input: UpdateTaskDTO) => {
-  const output = await Axios.put<Task>(`/task/${id}`, input);
+  const output = await Axios.patch<Task>(`/task/${id}`, input);
   return output.data;
 };
