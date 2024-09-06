@@ -5,6 +5,7 @@ const button = tv({
   base: 'border-none rounded-md p-1 min-w-16 min-h-8 text-gray-200 font-bold hover:opacity-80',
   variants: {
     size: {
+      icon: 'w-5 h-5',
       sm: 'text-sm',
       md: 'w-40 h-12 text-md',
       lg: 'w-80 h-12 text-lg',
@@ -13,7 +14,7 @@ const button = tv({
     variant: {
       primary: 'bg-cyan-600',
       outline: 'bg-none border border-solid border-gray-500',
-      icon: 'bg-none border-none',
+      icon: 'bg-none border-none flex items-center justify-center',
     },
     defaultVariants: {
       size: 'md',
