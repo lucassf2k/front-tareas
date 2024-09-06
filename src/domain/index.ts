@@ -3,7 +3,6 @@ export type Task = {
   title: string;
   description: string;
   isCompleted: boolean;
-  createdAt: Date;
 };
 
 export type User = {
