@@ -45,7 +45,7 @@ export function Home() {
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tasks, setTasks] = useState<Task[]>([]);
-  const { register, handleSubmit } = useForm<CreateTaskSchema>();
+  const { register, handleSubmit, reset } = useForm<CreateTaskSchema>();
   const { handleLogout } = useContext(AuthContext);
 
   const handleToggleVisibleModal = () => {
@@ -70,13 +70,14 @@ export function Home() {
 
   const handleNextPage = (page: number) => {
     return () => {
-      setPagination({ currentPage: page, total: tasks.length });
+      setPagination({ currentPage: page, total: 0 });
     };
   };
 
   const handleCreateTask = async (data: CreateTaskSchema) => {
     try {
       setIsLoading(true);
+      reset();
       const response = await createTask(data);
       loadTask();
       setIsLoading(false);
@@ -196,13 +197,13 @@ export function Home() {
       </Modal>
       <div className="relative w-screen h-screen bg-black text-zinc-300 flex flex-col items-center">
         <button
-          className="absolute top-7 right-7 bg-cyan-700 p-3 rounded-full flex items-center justify-center hover:opacity-95"
+          className="absolute top-7 right-7 bg-cyan-400 p-3 rounded-full flex items-center justify-center hover:opacity-95"
           onClick={handleLogout}
         >
-          <CiLogout size={28} />
+          <CiLogout size={28} className="text-zinc-950" />
         </button>
         <header className="max-w-[980px] w-full mt-28 flex items-center justify-between gap-3">
-          <h1 className="text-cyan-400 text-4xl font-bold">Tareas</h1>
+          <h1 className="text-cyan-400 text-6xl font-bold">Tareas</h1>
           <Button
             size="md"
             variant="outline"

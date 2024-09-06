@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export const Axios = axios.create({
-  baseURL: 'http://localhost:3001/api',
+  baseURL: import.meta.env.VITE_TASK_API_DOMAIN,
 });

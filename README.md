@@ -1,50 +1,53 @@
-# React + TypeScript + Vite
+# Gerenciamento de Tarefas - TAREAS(frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto é uma aplicação de gerenciamento de tarefas que inclui autenticação JWT e operações CRUD completas. A aplicação é construída com React.js, Vite, TypeScript, e utiliza várias bibliotecas e ferramentas modernas para uma experiência de desenvolvimento e usuário otimizada.
 
-Currently, two official plugins are available:
+## Tecnologias
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Frontend:** React.js, Vite, TypeScript, React Hook Form, Tailwind CSS, Toastify JS, Cookies
 
-## Expanding the ESLint configuration
+## Funcionalidades
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Autenticação JWT:** Login e registro de usuários com token JWT para autenticação.
+- **CRUD de Tarefas:** Criação, leitura, atualização e exclusão de tarefas.
+- **Interface Responsiva:** Utiliza Tailwind CSS para um design responsivo e moderno.
+- **Formulários Eficientes:** Gerenciamento de formulários com React Hook Form.
+- **Notificações:** Feedbacks e notificações com Toastify JS.
+- **Armazenamento Seguro:** Utilização de cookies para armazenar o token de autenticação.
 
-- Configure the top-level `parserOptions` property like this:
+## Configuração do Projeto
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Requisitos
+
+- Node.js (versão 20 ou superior)
+- NPM ou Yarn ou PNPM
+
+### Instalando Dependências
+
+Clone o repositório e instale as dependências:
+
+```bash
+git clone https://github.com/lucassf2k/front-tareas
+cd front-tareas
+npm install
+# ou
+yarn instal
+# ou
+pnpm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Inicializando projeto
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```bash
+npm run dev
+# ou
+yarn dev
+# ou
+pnpm dev
+```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+Variáveis de ambiente
+
+```env
+VITE_TASK_API_DOMAIN='http://localhost:3001/api'
 ```
