@@ -37,6 +37,8 @@ export type UpdateTask = {
   };
 };
 
+const PAGE_SIZE = 10;
+
 export function Home() {
   const [toggleModal, setToggleModal] = useState<boolean>(false);
   const [pagination, setPagination] = useState<PaginationSchema>({
@@ -55,7 +57,7 @@ export function Home() {
   const loadTask = async () => {
     try {
       setIsLoading(true);
-      const tasks = await getAllTask(pagination.currentPage);
+      const tasks = await getAllTask(pagination.currentPage, PAGE_SIZE);
       setTasks(tasks);
       setPagination({
         currentPage: pagination.currentPage,
@@ -259,7 +261,7 @@ export function Home() {
                 <IoIosArrowBack size={20} />
               </button>
             )}
-            {totalPagesItems.length == 10 && (
+            {totalPagesItems.length === PAGE_SIZE && (
               <button
                 className="border-none bg-none flex items-center justify-center text-sm hover:opacity-80"
                 onClick={handleNextPage(pagination.currentPage + 1)}
