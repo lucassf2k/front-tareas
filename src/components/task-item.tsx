@@ -6,7 +6,6 @@ import { IoIosClose } from 'react-icons/io';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { Button } from './button';
 import { Card } from './card';
-import { Loader } from './loader';
 import { Modal, ModalContent } from './modal';
 import { Input, InputContainer } from './input';
 
