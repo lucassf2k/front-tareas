@@ -39,7 +39,6 @@ export type UpdateTaskSchema = {
 
 export const TaskItem = (props: TaskItemProps) => {
   const { register, handleSubmit } = useForm<UpdateTaskSchema>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [toggleModalVisibility, setToggleModalVisibility] =
     useState<boolean>(false);
 
@@ -49,7 +48,6 @@ export const TaskItem = (props: TaskItemProps) => {
 
   return (
     <>
-      <Loader isLoading={isLoading} />
       <Modal isVisible={toggleModalVisibility}>
         <ModalContent className="p-5">
           <div className="w-full flex items-center justify-between">
