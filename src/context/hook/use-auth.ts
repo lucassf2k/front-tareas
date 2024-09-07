@@ -27,7 +27,7 @@ export function useAuth() {
       setIsLoading(true);
       const response = await signIn(user);
       if (!response.token) navigate('/');
-      const cookieExpirationTime = new Date(Date.now() + 5 * 60 * 1000);
+      const cookieExpirationTime = new Date(Date.now() + 60 * 60 * 1000);
       Cookie.set('@TAREAS:token', JSON.stringify(response.token), {
         expires: cookieExpirationTime,
       });
