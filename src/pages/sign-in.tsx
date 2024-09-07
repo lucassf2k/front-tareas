@@ -1,14 +1,14 @@
 import { useContext } from 'react';
-import { z } from 'zod';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Card } from '../components/card';
 import { Banner } from '../components/banner';
 import { Button } from '../components/button';
-import { Card } from '../components/card';
+import { Loader } from '../components/loader';
 import { ErrorComp, Input, InputContainer } from '../components/input';
 import { AuthContext } from '../context/auth-context';
-import { Loader } from '../components/loader';
-import { Link } from 'react-router-dom';
 
 const signInSchema = z.object({
   email: z

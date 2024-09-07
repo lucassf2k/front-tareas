@@ -5,15 +5,15 @@ import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from 'react-icons/io';
 import { Button } from '../components/button';
+import { Loader } from '../components/loader';
 import { Modal, ModalContent } from '../components/modal';
 import { TaskItem, UpdateTaskSchema } from '../components/task-item';
-import { getAllTask } from '../libs/http/get-all-task';
-import { Task } from '../domain';
 import { Card } from '../components/card';
 import { Input, InputContainer } from '../components/input';
-import { createTask } from '../libs/http/create-task';
+import { Task } from '../domain';
 import { AuthContext } from '../context/auth-context';
-import { Loader } from '../components/loader';
+import { createTask } from '../libs/http/create-task';
+import { getAllTask } from '../libs/http/get-all-task';
 import { deleteTask } from '../libs/http/deleteTask';
 import { updateTask } from '../libs/http/update-task';
 
@@ -61,10 +61,14 @@ export function Home() {
         currentPage: pagination.currentPage,
         total: tasks.length,
       });
-      console.log(pagination);
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
+      setIsLoading(false);
+      if (error instanceof AxiosError && error.status) {
+        if (error.status === 500) {
+          toast.error('Algo inesperado aconteceu! Tente novamente mais tarde.');
+        }
+      }
     }
   };
 
@@ -78,14 +82,17 @@ export function Home() {
     try {
       setIsLoading(true);
       reset();
-      const response = await createTask(data);
+      await createTask(data);
       loadTask();
       setIsLoading(false);
       handleToggleVisibleModal();
-      console.log(response);
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
+      if (error instanceof AxiosError && error.status) {
+        if (error.status === 500) {
+          toast.error('Algo inesperado aconteceu! Tente novamente mais tarde.');
+        }
+      }
     }
   };
 
@@ -93,12 +100,19 @@ export function Home() {
     return async () => {
       try {
         setIsLoading(true);
-        const response = await deleteTask(id);
+        await deleteTask(id);
         loadTask();
-        console.log(response);
         setIsLoading(false);
       } catch (error) {
-        console.log(error);
+        setIsLoading(false);
+        if (error instanceof AxiosError && error.status) {
+          if (error.status === 404) toast.info('Tarefa não encontrada!');
+          if (error.status === 500) {
+            toast.error(
+              'Algo inesperado aconteceu! Tente novamente mais tarde.',
+            );
+          }
+        }
       }
     };
   };
@@ -107,13 +121,18 @@ export function Home() {
     return async () => {
       try {
         setIsLoading(true);
-        const response = await updateTask(id, { isCompleted: !isCompleted });
+        await updateTask(id, { isCompleted: !isCompleted });
         loadTask();
-        console.log('adasdaa');
         setIsLoading(false);
       } catch (error) {
+        setIsLoading(false);
         if (error instanceof AxiosError && error.status) {
           if (error.status === 404) toast.info('Tarefa não encontrada!');
+          if (error.status === 500) {
+            toast.error(
+              'Algo inesperado aconteceu! Tente novamente mais tarde.',
+            );
+          }
         }
       }
     };
@@ -132,16 +151,19 @@ export function Home() {
     if (data.description !== props.task.description) {
       updatedTask.description = data.description;
     }
-    console.log(props.task);
-    console.log(data);
-    console.log(updatedTask);
     try {
       setIsLoading(true);
-      const response = await updateTask(props.task.id, updatedTask);
+      await updateTask(props.task.id, updatedTask);
       loadTask();
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
+      setIsLoading(false);
+      if (error instanceof AxiosError && error.status) {
+        if (error.status === 404) toast.info('Tarefa não encontrada!');
+        if (error.status === 500) {
+          toast.error('Algo inesperado aconteceu! Tente novamente mais tarde.');
+        }
+      }
     }
   };
 

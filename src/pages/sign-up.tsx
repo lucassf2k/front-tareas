@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,8 +10,6 @@ import { Card } from '../components/card';
 import { ErrorComp, Input, InputContainer } from '../components/input';
 import { Loader } from '../components/loader';
 import { signUp } from '../libs/http/sign-up';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 const signUpSchema = z.object({
   email: z
@@ -43,7 +43,6 @@ export function SignUp() {
       setIsLoading(false);
       navigate('/');
     } catch (error) {
-      console.log(error);
       toast.error('Aconteceu algo inesperado! Tente novamente');
       setIsLoading(false);
       navigate('/sign-up');

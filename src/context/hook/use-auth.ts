@@ -41,10 +41,13 @@ export function useAuth() {
     } catch (error) {
       setIsLoading(false);
       if (error instanceof AxiosError && error.status) {
-        if (error.status >= 400 && error.status < 500)
+        if (error.status >= 400 && error.status < 500) {
           toast.warning('Usuário sem permissão! Verifique e-mail e senha');
+        }
+        if (error.status === 500) {
+          toast.error('Algo inesperado aconteceu! Tente mais tarde.');
+        }
       }
-      console.log(error);
     }
   };
 
